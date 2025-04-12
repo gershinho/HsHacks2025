@@ -2,12 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for
 import requests
 import random
 from flask_babel import Babel
+
 app = Flask(__name__)
 
-SPOONACULAR_API_KEY = 'b73d3e10b4ca474891e5fdc952e1ee4d'  # Replace with your key
+SPOONACULAR_API_KEY = '25515a9d59df40a8bd68cd56bc728359'  # Replace with your key
 SEARCH_ENDPOINT = "https://api.spoonacular.com/recipes/complexSearch"
 EXTRACT_ENDPOINT = "https://api.spoonacular.com/recipes/extract"
-
 
 
 def extract_recipe_details(source_url):
@@ -40,9 +40,29 @@ def fetch_recipe_by_country(country):
             valid_recipes.append(recipe_data)
     
     if valid_recipes:
-        chosen_recipe = random.choice(valid_recipes)
-        source_url = chosen_recipe.get('sourceUrl')
-        detailed_data = extract_recipe_details(source_url)
+        # Create a copy so we can filter out unwanted recipes.
+        available_recipes = valid_recipes.copy()
+        chosen_recipe = None
+        detailed_data = None
+        
+        while available_recipes:
+            chosen_recipe = random.choice(available_recipes)
+            source_url = chosen_recipe.get('sourceUrl')
+            detailed_data = extract_recipe_details(source_url)
+            
+            # Get the recipe title from detailed data or fallback to the chosen recipe.
+            recipe_title = detailed_data.get("title", chosen_recipe.get("title", "No title")).strip()
+            
+            # If the recipe title is "Gete's perfect tikil gomen", remove it and choose another.
+            if recipe_title.lower() == "gete's perfect tikil gomen".lower():
+                available_recipes.remove(chosen_recipe)
+                continue
+            else:
+                break  # Found a valid recipe.
+        
+        # If no valid recipe remains, return None.
+        if not available_recipes:
+            return None
         
         # Extract ingredients from the detailed data.
         ingredients_list = []
@@ -50,6 +70,9 @@ def fetch_recipe_by_country(country):
             ingredients_list = [ing.get("name", "Unknown") for ing in detailed_data["extendedIngredients"]]
         elif "ingredients" in detailed_data:
             ingredients_list = [ing.get("name", "Unknown") for ing in detailed_data["ingredients"]]
+        
+        # Filter each ingredient: Remove any text after the hyphen, including the hyphen itself.
+        ingredients_list = [ingredient.split('-')[0].strip() for ingredient in ingredients_list]
         
         # Process the summary:
         summary = detailed_data.get("summary", "")
@@ -69,25 +92,32 @@ def fetch_recipe_by_country(country):
             "summary": summary,
             "instructions": detailed_data.get("instructions", "")
         }
-        
-        
-        recipe_return["ingredients"] = ingredients_list
-        
+    
+        print(ingredients_list)
         return recipe_return
+
     return None
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    return render_template('index.html')
+
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
     if request.method == 'POST':
         country = request.form.get('country')
         return redirect(url_for('explore', country=country))
-    return render_template('index.html')
+    return render_template('home.html')
+
 
 @app.route('/explore')
 def explore():
     country = request.args.get('country')
     recipe = fetch_recipe_by_country(country)
     return render_template("explore.html", recipe=recipe, country=country)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

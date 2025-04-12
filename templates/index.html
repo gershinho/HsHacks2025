@@ -1,26 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Select a Country</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dishly - Learn Culture Through Cooking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dishly-gold': '#EAB619',
+            'dishly-cream': '#FFFBE2',
+            'dishly-pink': '#F65A6D',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Hide scrollbar (Chrome, Safari, Opera) */
+    .scrollbar-hidden::-webkit-scrollbar {
+      display: none;
+    }
+    /* Hide scrollbar (IE, Edge, Firefox) */
+    .scrollbar-hidden {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes marqueeRight {
+      0% {
+        transform: translateX(-50%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    .animate-marqueeRight {
+      animation: marqueeRight 20s linear infinite;
+    }
+  </style>
 </head>
-<body>
-    <h1>Click a Country</h1>
-    <form action="/" method="post">
-        <input type="hidden" name="country" id="selected-country">
-        <button type="button" onclick="selectCountry('Ethiopia')">Ethiopia</button>
-        <button type="button" onclick="selectCountry('India')">India</button>
-        <button type="button" onclick="selectCountry('Jamaica')">Jamaica</button>
-        <button type="button" onclick="selectCountry('Japan')">Japan</button>
-
-
-    </form>
-
-    <script>
-        function selectCountry(country) {
+<body class="bg-dishly-gold flex items-center justify-center h-screen">
+  <!-- Main Container: scrollable and full-screen height -->
+  <div id="main-cont" class="bg-dishly-cream rounded-[5rem] w-[160vh] h-screen p-6 overflow-y-auto scrollbar-hidden">
+    <!-- Content Wrapper for full-screen sections -->
+    <div id="content-wrapper" class="flex flex-col">
+      <!-- Top Part: Beginning Screen -->
+      <div id="top-part" class="h-screen flex flex-col items-center justify-center">
+        <!-- Logo Section -->
+        <div>
+          <img src="/static/img/dishly_logo_lg.png" alt="Dishly Logo" class="h-32 w-auto object-contain" />
+        </div>
+        <!-- Tagline -->
+        <p class="mt-4 text-3xl text-center text-black">
+          Learn culture through cooking!
+        </p>
+        <!-- Country Carousel -->
+        <div id="country_carousel" class="relative overflow-hidden w-[75rem] mt-10">
+          <!-- Carousel Track -->
+          <div class="flex space-x-6 animate-marqueeRight">
+            <!-- Cards: Update these cards as needed -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Ethiopia</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">India</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Jamaica</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Japan</p>
+            </div>
+            <!-- More cards... (adjust as desired) -->
+          </div>
+          <!-- Fade Overlay -->
+          <div class="absolute top-0 right-0 h-full w-24 pointer-events-none"
+               style="background: linear-gradient(to right, transparent, #FFFBE2);">
+          </div>
+        </div>
+        <!-- Get Started Button -->
+        <div class="mt-10">
+          <button onclick="revealSecondPart()" class="bg-dishly-pink rounded-full p-4">
+            <svg class="w-8 h-8 text-dishly-cream transform rotate-180 animate-bounce" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 1a1 1 0 01.894.553l6 12A1 1 0 0114 15H2a1 1 0 01-.894-1.447l6-12A1 1 0 018 1z" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Second Part: Home Content from home.html -->
+      <div id="second-part" class="h-screen flex flex-col items-center justify-center">
+        <!-- Home.html content starts here -->
+        <h1 class="text-4xl font-bold text-black mb-8">Click a Country</h1>
+        <form action="/home" method="post" class="space-x-4">
+          <input type="hidden" name="country" id="selected-country">
+          <button type="button" onclick="selectCountry('Ethiopia')" 
+                  class="px-6 py-3 bg-dishly-pink text-dishly-cream rounded-full hover:bg-dishly-gold transition">
+            Ethiopia
+          </button>
+          <button type="button" onclick="selectCountry('India')" 
+                  class="px-6 py-3 bg-dishly-pink text-dishly-cream rounded-full hover:bg-dishly-gold transition">
+            India
+          </button>
+          <button type="button" onclick="selectCountry('Jamaica')" 
+                  class="px-6 py-3 bg-dishly-pink text-dishly-cream rounded-full hover:bg-dishly-gold transition">
+            Jamaica
+          </button>
+          <button type="button" onclick="selectCountry('Japan')" 
+                  class="px-6 py-3 bg-dishly-pink text-dishly-cream rounded-full hover:bg-dishly-gold transition">
+            Japan
+          </button>
+        </form>
+        <script>
+          function selectCountry(country) {
             document.getElementById('selected-country').value = country;
             document.querySelector('form').submit();
-        }
-    </script>
+          }
+        </script>
+        <!-- Home.html content ends here -->
+      </div>
+    </div>
+  </div>
+  <script>
+    function revealSecondPart() {
+      const mainCont = document.getElementById('main-cont');
+      const secondPart = document.getElementById('second-part');
+      mainCont.scrollTo({ top: secondPart.offsetTop, behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>

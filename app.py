@@ -5,7 +5,7 @@ from flask_babel import Babel
 
 app = Flask(__name__)
 
-SPOONACULAR_API_KEY = '25515a9d59df40a8bd68cd56bc728359'  # Replace with your key
+SPOONACULAR_API_KEY = '81274360276f4414a8b2994ac37464eb'  # Replace with your key
 SEARCH_ENDPOINT = "https://api.spoonacular.com/recipes/complexSearch"
 EXTRACT_ENDPOINT = "https://api.spoonacular.com/recipes/extract"
 
@@ -76,16 +76,19 @@ def fetch_recipe_by_country(country):
         
         # Process the summary:
         summary = detailed_data.get("summary", "")
-        # Remove any "Similar recipes include" text.
-        if "Similar recipes" in summary:
-            summary = summary.split("Similar recipes include")[0]
-        # Truncate summary after the spoonacular score text.
-        if "spoonacular" in summary:
-            start = summary.find("spoonacular")
-            end = summary.find("%", start)
-            if end != -1:
-                summary = summary[:end+1]
-    
+        cut_markers = [
+        "Similar recipes include",
+        "Overall",
+        "Taking all factors into account",
+        "It is brought to you by"
+        ]
+        cut_index = len(summary)
+        for marker in cut_markers:
+            idx = summary.find(marker)
+            if idx != -1 and idx < cut_index:
+                cut_index = idx
+        summary = summary[:cut_index].strip()
+
         recipe_return = {
             "title": detailed_data.get("title", chosen_recipe.get("title", "No title")),
             "ingredients": ingredients_list,

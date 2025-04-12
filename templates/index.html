@@ -39,14 +39,36 @@
     .animate-marqueeRight {
       animation: marqueeRight 20s linear infinite;
     }
+    /* Animated diagonal pattern for background */
+    .pattern-anim {
+      background: #EAB619;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(211, 157, 30, 0.3) 10px,
+        rgba(211, 157, 30, 0.3) 20px
+      );
+      background-size: 200% 200%;
+      animation: movePattern 30s linear infinite;
+    }
+    @keyframes movePattern {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 100% 100%;
+      }
+    }
   </style>
 </head>
-<body class="bg-dishly-gold flex items-center justify-center h-screen">
-  <!-- Main Container: scrollable and full-screen height -->
+<body class="pattern-anim flex items-center justify-center h-screen">
+  <!-- Main Container: scrollable with full-screen height -->
   <div id="main-cont" class="bg-dishly-cream rounded-[5rem] w-[160vh] h-screen p-6 overflow-y-auto scrollbar-hidden">
-    <!-- Content Wrapper for full-screen sections -->
+    <!-- Content Wrapper with full-screen sections -->
     <div id="content-wrapper" class="flex flex-col">
-      <!-- Top Part: Beginning Screen -->
+      
+      <!-- Top Part: Beginning Screen with Carousel -->
       <div id="top-part" class="h-screen flex flex-col items-center justify-center">
         <!-- Logo Section -->
         <div>
@@ -60,10 +82,26 @@
         <div id="country_carousel" class="relative overflow-hidden w-[75rem] mt-10">
           <!-- Carousel Track -->
           <div class="flex space-x-6 animate-marqueeRight">
-            <!-- Cards: Update these cards as needed -->
+            <!-- Carousel Cards with correct country names -->
             <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
               <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
               <p class="mt-2 text-dishly-cream text-3xl font-bold">Ethiopia</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Cuba</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Mexico</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Egypt</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Pakistan</p>
             </div>
             <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
               <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
@@ -77,7 +115,10 @@
               <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
               <p class="mt-2 text-dishly-cream text-3xl font-bold">Japan</p>
             </div>
-            <!-- More cards... (adjust as desired) -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Serbia</p>
+            </div>
           </div>
           <!-- Fade Overlay -->
           <div class="absolute top-0 right-0 h-full w-24 pointer-events-none"
@@ -93,28 +134,94 @@
           </button>
         </div>
       </div>
-      <!-- Second Part: Home Content from home.html -->
-      <div id="second-part" class="h-screen flex flex-col items-center justify-center">
-        <!-- Home.html content starts here -->
-        <h1 class="text-4xl font-bold text-black mb-8">Click a Country</h1>
-        <form action="/home" method="post" class="space-x-4">
+      
+      <!-- Second Part: Country Selection with Card-like Appearance -->
+      <div id="second-part" class="h-screen flex flex-col items-center justify-start pt-12">
+        <!-- Header for country selection -->
+        <div class="flex flex-col items-center mb-8">
+          <img src="/static/img/dishly_logo_lg.png" alt="Dishly Logo" class="h-16 w-auto object-contain" />
+          <p class="mt-4 text-3xl text-center text-black">What country do you want to explore?</p>
+        </div>
+        <!-- Form wrapping the grid of country cards -->
+        <form action="/home" method="post">
           <input type="hidden" name="country" id="selected-country">
-          <button type="button" onclick="selectCountry('Ethiopia')" 
-                  class="px-6 py-3 bg-dishly-pink text-dishly-cream rounded-full hover:bg-dishly-gold transition">
-            Ethiopia
-          </button>
-          <button type="button" onclick="selectCountry('India')" 
-                  class="px-6 py-3 bg-dishly-pink text-dishly-cream rounded-full hover:bg-dishly-gold transition">
-            India
-          </button>
-          <button type="button" onclick="selectCountry('Jamaica')" 
-                  class="px-6 py-3 bg-dishly-pink text-dishly-cream rounded-full hover:bg-dishly-gold transition">
-            Jamaica
-          </button>
-          <button type="button" onclick="selectCountry('Japan')" 
-                  class="px-6 py-3 bg-dishly-pink text-dishly-cream rounded-full hover:bg-dishly-gold transition">
-            Japan
-          </button>
+          <div class="grid grid-cols-4 gap-8">
+            <!-- Ethiopia Card -->
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">Ethiopia</p>
+              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <button type="button" onclick="selectCountry('Ethiopia')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+                Learn!
+              </button>
+            </div>
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">Cuba</p>
+              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <button type="button" onclick="selectCountry('Cuba')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+                Learn!
+              </button>
+            </div>
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">Egypt</p>
+              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <button type="button" onclick="selectCountry('Egypt')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+                Learn!
+              </button>
+            </div>
+            <!-- Serbia Card -->
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">Serbia</p>
+              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <button type="button" onclick="selectCountry('Serbia')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+                Learn!
+              </button>
+            </div>
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">Mexico</p>
+              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <button type="button" onclick="selectCountry('Mexico')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+                Learn!
+              </button>
+            </div>
+            <!-- India Card -->
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">India</p>
+              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <button type="button" onclick="selectCountry('India')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+                Learn!
+              </button>
+            </div>
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">Pakistan</p>
+              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <button type="button" onclick="selectCountry('Pakistan')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+                Learn!
+              </button>
+            </div>
+            <!-- Jamaica Card -->
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">Jamaica</p>
+              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <button type="button" onclick="selectCountry('Jamaica')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+                Learn!
+              </button>
+            </div>
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">Germany</p>
+              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <button type="button" onclick="selectCountry('Germany')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+                Learn!
+              </button>
+            </div>
+            <!-- Japan Card -->
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">Japan</p>
+              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <button type="button" onclick="selectCountry('Japan')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+                Learn!
+              </button>
+            </div>
+          </div>
         </form>
         <script>
           function selectCountry(country) {
@@ -122,7 +229,6 @@
             document.querySelector('form').submit();
           }
         </script>
-        <!-- Home.html content ends here -->
       </div>
     </div>
   </div>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select a Country</title>
+</head>
+<body>
+    <h1>Click a Country</h1>
+    <form action="/" method="post">
+        <input type="hidden" name="country" id="selected-country">
+        <button type="button" onclick="selectCountry('Ethiopia')">Ethiopia</button>
+        <button type="button" onclick="selectCountry('India')">India</button>
+        <button type="button" onclick="selectCountry('Jamaica')">Jamaica</button>
+        <button type="button" onclick="selectCountry('Japan')">Japan</button>
+
+
+    </form>
+
+    <script>
+        function selectCountry(country) {
+            document.getElementById('selected-country').value = country;
+            document.querySelector('form').submit();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dishly - Bare Bones Base</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dishly-gold': '#EAB619',
+                        'dishly-cream': '#FFFBE2',
+                        'dishly-pink': '#F65A6D'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Hide scrollbars */
+        .scrollbar-hidden::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hidden {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Animated diagonal gold pattern applied to entire background */
+        .pattern-anim {
+            background: #EAB619;
+            background-image: repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(211, 157, 30, 0.3) 10px,
+                    rgba(211, 157, 30, 0.3) 20px);
+            background-size: 200% 200%;
+            animation: movePattern 30s linear infinite;
+        }
+
+        @keyframes movePattern {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="pattern-anim flex items-center justify-center h-screen">
+    <!-- Main scrollable container with cream background -->
+    <div id="main-cont" class="bg-dishly-cream rounded-[5rem] w-[80vw] h-screen p-6 overflow-y-auto scrollbar-hidden">
+        <!-- Wrapper holding two full-screen sections -->
+        <div id="content-wrapper" class="flex flex-col">
+
+            <!-- Top Part -->
+            <div id="top-part" class="h-screen flex flex-col items-center justify-between py-8">
+                <!-- Logo -->
+                <div class="self-start ml-12">
+                    <img src="/static/img/dishly_logo_lg.png" alt="Dishly Logo" class="h-12 w-auto" />
+                </div>
+
+                <!-- Content Row: flex-row wrapper -->
+                <div class="w-full px-12 flex space-x-8 flex-1">
+                    <!-- Country Card (30%) -->
+                    <div class="w-[30%] bg-dishly-pink rounded-[2rem] py-8 px-4 flex flex-col">
+                        <h3 class="text-3xl font-bold text-white mb-6">{{Country Name}}</h3>
+                        <div
+                            class="flex-1 bg-blue-400 rounded-xl flex items-center justify-center text-white text-xl mx-4 my-2 aspect-square">
+                            Image
+                        </div>
+                    </div>
+
+                    <!-- Dish Card (70%) -->
+                    <div class="w-[70%] bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
+                        <!-- Heading + Triangle Button -->
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-3xl font-bold text-white">{{Dish Name}}</h3>
+                            <button class="w-12 h-12 bg-dishly-gold rounded-full flex items-center justify-center
+                       transition transform hover:brightness-110 hover:scale-105">
+                                <svg class="w-6 h-6 text-dishly-cream" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="8,4 20,12 8,20" />
+                                </svg>
+                            </button>
+                        </div>
+                        <!-- Description Box -->
+                        <div class="mt-6 flex-1 bg-dishly-cream rounded-lg p-6 text-gray-700 overflow-y-auto text-lg">
+                            {{Description}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cook It Button -->
+                <button onclick="revealSecondPart()" class="mt-8 w-1/4 bg-dishly-gold text-white px-12 py-4 rounded-full text-lg
+                 transition transform hover:brightness-110 hover:scale-105">
+                    Cook it!
+                </button>
+            </div>
+
+            <!-- Second Part -->
+<!-- Second Part -->
+<div
+  id="second-part"
+  class="h-screen flex flex-col items-center justify-center"
+>
+  <!-- Back to Top Button -->
+  <button
+    onclick="backToTop()"
+    class="mb-4 w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center
+           transition transform hover:brightness-110 hover:scale-105"
+  >
+    <svg class="w-6 h-6 text-dishly-cream transform -rotate-90" viewBox="0 0 24 24" fill="currentColor">
+      <polygon points="8,4 20,12 8,20" />
+    </svg>
+  </button>
+
+  <!-- Centered Row: fixed width -->
+  <div class="w-4/5 flex space-x-8 h-2/3">
+    <!-- Instructions Panel -->
+    <div class="relative w-2/3 bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
+      <h2 class="text-2xl font-bold text-white mb-4 text-center">Instructions</h2>
+      <div
+        class="flex-1 flex items-center justify-center text-white text-2xl text-center overflow-y-auto"
+      >
+        {{instructions}}
+      </div>
+      <!-- Navigation Arrows -->
+      <div class="absolute bottom-6 right-6 flex space-x-4">
+        <!-- Back -->
+        <button
+          class="w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center
+                 transition transform hover:brightness-110 hover:scale-105"
+        >
+          <svg class="w-6 h-6 text-dishly-cream transform rotate-180" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="8,4 20,12 8,20" />
+          </svg>
+        </button>
+        <!-- Forward -->
+        <button
+          class="w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center
+                 transition transform hover:brightness-110 hover:scale-105"
+        >
+          <svg class="w-6 h-6 text-dishly-cream" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="8,4 20,12 8,20" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Ingredients Panel -->
+    <div class="w-1/4 bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
+      <h2 class="text-2xl font-bold text-white mb-4 text-center">Ingredients</h2>
+      <ul class="flex-1 bg-dishly-pink text-white overflow-y-auto list-disc list-inside text-lg">
+        {{ingredient list}}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  function backToTop() {
+    const mainCont = document.getElementById('main-cont');
+    const topPart = document.getElementById('top-part');
+    mainCont.scrollTo({ top: topPart.offsetTop, behavior: 'smooth' });
+  }
+</script>
+
+
+
+
+        </div>
+
+        <script>
+            // Smoothly scroll the main container to the second part when the button is clicked
+            function revealSecondPart() {
+                const mainCont = document.getElementById('main-cont');
+                const secondPart = document.getElementById('second-part');
+                mainCont.scrollTo({ top: secondPart.offsetTop, behavior: 'smooth' });
+            }
+        </script>
+</body>
+
+</html>

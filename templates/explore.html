@@ -46,24 +46,35 @@
 
       <!-- Top Part -->
       <div id="top-part" class="h-screen flex flex-col items-center justify-between py-8">
-        <!-- Logo -->
-        <div class="self-start ml-12">
+        <!-- Logo + Home Button -->
+        <div class="self-start ml-12 flex items-center space-x-4">
           <img src="/static/img/dishly_logo_lg.png" alt="Dishly Logo" class="h-12 w-auto" />
+          <button onclick="window.location='/'"
+                  class="w-12 h-12 rounded-full flex items-center justify-center
+                         transition-transform hover:scale-110 focus:outline-none">
+            <svg class="w-8 h-8 text-dishly-pink" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+          </button>
         </div>
 
         <!-- Content Row -->
         <div class="w-full px-12 flex space-x-8 flex-1">
-          <!-- Country Card -->
-          <div class="flex-1 bg-white rounded-xl flex items-center justify-center mx-4 my-2 aspect-square p-4 overflow-hidden">
+          <!-- Image Column -->
+          <div class="flex-shrink-0 flex items-center justify-center w-1/3">
             {% if recipe and recipe.image %}
-              <img src="{{ recipe.image }}" alt="{{ country }} dish" class="max-w-full max-h-full object-contain rounded-lg">
+              <img
+                src="{{ recipe.image }}"
+                alt="{{ country }} dish"
+                class="max-w-full max-h-[70vh] object-cover rounded-lg"
+              >
             {% else %}
               <span class="text-dishly-pink text-xl">No Image</span>
             {% endif %}
           </div>
 
           <!-- Dish Card -->
-          <div class="w-[70%] bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
+          <div class="w-2/3 bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
             <div class="flex justify-between items-start">
               <h3 class="text-3xl font-bold text-white">{{ recipe.title }}</h3>
               <button onclick="window.location.href='/explore?country={{ country }}'"
@@ -88,98 +99,92 @@
         </button>
       </div>
 
-<!-- Second Part -->
-<div id="second-part" class="h-screen flex flex-col items-center justify-center">
-  <!-- Back to Top & Home Buttons -->
-  <div class="flex space-x-4 mb-4">
-    <button onclick="backToTop()"
-            class="w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center
-                   transition transform hover:brightness-110 hover:scale-105">
-      <svg class="w-6 h-6 text-dishly-cream transform -rotate-90" viewBox="0 0 24 24" fill="currentColor">
-        <polygon points="8,4 20,12 8,20" />
-      </svg>
-    </button>
-    <button onclick="window.location='/'"
-            class="w-10 h-10 bg-dishly-cream rounded-full flex items-center justify-center
-                   transition transform hover:brightness-110 hover:scale-105">
-      <svg class="w-6 h-6 text-dishly-pink" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-      </svg>
-    </button>
-  </div>
+      <!-- Second Part -->
+      <div id="second-part" class="h-screen flex flex-col items-center justify-center">
+        <!-- Back to Top Only -->
+        <div class="flex space-x-4 mb-4">
+          <button onclick="backToTop()"
+                  class="w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center
+                         transition transform hover:brightness-110 hover:scale-105">
+            <svg class="w-6 h-6 text-dishly-cream transform -rotate-90" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="8,4 20,12 8,20" />
+            </svg>
+          </button>
+        </div>
 
-  <!-- Instructions & Ingredients Panels -->
-  <div class="w-4/5 flex space-x-8 h-2/3">
-    <!-- Instructions Panel -->
-    <div class="relative w-2/3 bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
-      <h2 class="text-2xl font-bold text-white mb-4 text-center">Instructions</h2>
-      <div id="instructionDisplay" class="flex-1 flex items-center justify-center text-white text-2xl text-center overflow-y-auto px-4">
-        <!-- Populated by JS -->
-      </div>
-      <!-- Navigation Arrows -->
-      <div class="absolute bottom-6 right-6 flex space-x-4">
-        <button id="prevInst" class="w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center transition transform hover:brightness-110 hover:scale-105 disabled:opacity-50">
-          <svg class="w-6 h-6 text-dishly-cream transform rotate-180" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="8,4 20,12 8,20" />
-          </svg>
-        </button>
-        <button id="nextInst" class="w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center transition transform hover:brightness-110 hover:scale-105 disabled:opacity-50">
-          <svg class="w-6 h-6 text-dishly-cream" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="8,4 20,12 8,20" />
-          </svg>
-        </button>
-      </div>
-    </div>
+        <!-- Instructions & Ingredients Panels -->
+        <div class="w-4/5 flex space-x-8 h-2/3">
+          <!-- Instructions Panel -->
+          <div class="relative w-2/3 bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
+            <h2 class="text-2xl font-bold text-white mb-4 text-center">Instructions</h2>
+            <div id="instructionDisplay" class="flex-1 flex items-center justify-center text-white text-2xl text-center overflow-y-auto px-4">
+              <!-- Populated by JS -->
+            </div>
+            <!-- Navigation Arrows -->
+            <div class="absolute bottom-6 right-6 flex space-x-4">
+              <button id="prevInst" class="w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center transition transform hover:brightness-110 hover:scale-105 disabled:opacity-50">
+                <svg class="w-6 h-6 text-dishly-cream transform rotate-180" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="8,4 20,12 8,20" />
+                </svg>
+              </button>
+              <button id="nextInst" class="w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center transition transform hover:brightness-110 hover:scale-105 disabled:opacity-50">
+                <svg class="w-6 h-6 text-dishly-cream" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="8,4 20,12 8,20" />
+                </svg>
+              </button>
+            </div>
+          </div>
 
-    <!-- Ingredients Panel -->
-    <div class="w-1/4 bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
-      <h2 class="text-2xl font-bold text-white mb-4 text-center">Ingredients</h2>
-      <ul class="flex-1 bg-dishly-pink text-white overflow-y-auto list-disc list-inside text-lg space-y-2 px-2">
-        {% for ing in recipe.ingredients %}
-          <li>{{ ing }}</li>
-        {% endfor %}
-      </ul>
+          <!-- Ingredients Panel -->
+          <div class="w-1/4 bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
+            <h2 class="text-2xl font-bold text-white mb-4 text-center">Ingredients</h2>
+            <ul class="flex-1 bg-dishly-pink text-white overflow-y-auto list-disc list-inside text-lg space-y-2 px-2">
+              {% for ing in recipe.ingredients %}
+                <li>{{ ing }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
 
-</div>
-</div>
+  <script>
+    function revealSecondPart() {
+      document.getElementById('main-cont')
+              .scrollTo({ top: document.getElementById('second-part').offsetTop, behavior: 'smooth' });
+    }
+    function backToTop() {
+      document.getElementById('main-cont').scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-<script>
-function revealSecondPart() {
-document.getElementById('main-cont').scrollTo({ top: document.getElementById('second-part').offsetTop, behavior: 'smooth' });
-}
-function backToTop() {
-document.getElementById('main-cont').scrollTo({ top: 0, behavior: 'smooth' });
-}
+    // Instruction step logic
+    const instrHTML = {{ recipe.instructions | tojson }};
+    let steps = [];
+    const tmp = document.createElement('div');
+    tmp.innerHTML = instrHTML;
+    const lis = tmp.querySelectorAll('li');
+    if (lis.length) {
+      steps = Array.from(lis).map(li => li.textContent.trim());
+    } else if (instrHTML.match(/\d+\.\s/)) {
+      steps = instrHTML.split(/(?=\d+\.\s)/).map(s => s.trim()).filter(s => s);
+    } else {
+      steps = instrHTML.split('.').map(s => s.trim()).filter(s => s);
+    }
+    let idx = 0;
+    const disp = document.getElementById('instructionDisplay');
+    const prevBtn = document.getElementById('prevInst');
+    const nextBtn = document.getElementById('nextInst');
 
-// Instruction step logic
-const instrHTML = {{ recipe.instructions | tojson }};
-let steps = [];
-const tmp = document.createElement('div');
-tmp.innerHTML = instrHTML;
-const lis = tmp.querySelectorAll('li');
-if (lis.length) {
-steps = Array.from(lis).map(li=>li.textContent.trim());
-} else if (instrHTML.match(/\d+\.\s/)) {
-steps = instrHTML.split(/(?=\d+\.\s)/).map(s=>s.trim()).filter(s=>s);
-} else {
-steps = instrHTML.split('.').map(s=>s.trim()).filter(s=>s);
-}
-let idx = 0;
-const disp = document.getElementById('instructionDisplay');
-const prevBtn = document.getElementById('prevInst');
-const nextBtn = document.getElementById('nextInst');
-
-function show(i) {
-disp.textContent = steps[i] || '';
-prevBtn.disabled = i===0;
-nextBtn.disabled = i===steps.length-1;
-}
-prevBtn.addEventListener('click', ()=> show(--idx));
-nextBtn.addEventListener('click', ()=> show(++idx));
-window.addEventListener('load', ()=> show(0));
-</script>
+    function show(i) {
+      disp.textContent = steps[i] || '';
+      prevBtn.disabled = i === 0;
+      nextBtn.disabled = i === steps.length - 1;
+    }
+    prevBtn.addEventListener('click', () => show(--idx));
+    nextBtn.addEventListener('click', () => show(++idx));
+    window.addEventListener('load', () => show(0));
+  </script>
 </body>
 </html>

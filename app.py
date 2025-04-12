@@ -5,7 +5,7 @@ from flask_babel import Babel
 
 app = Flask(__name__)
 
-SPOONACULAR_API_KEY = '81274360276f4414a8b2994ac37464eb'  # Replace with your key
+SPOONACULAR_API_KEY = 'ec919ca796094077bd8bc1fe9635935b'  # Replace with your key
 SEARCH_ENDPOINT = "https://api.spoonacular.com/recipes/complexSearch"
 EXTRACT_ENDPOINT = "https://api.spoonacular.com/recipes/extract"
 

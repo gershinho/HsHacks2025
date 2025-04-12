@@ -19,113 +19,119 @@
     }
   </script>
   <style>
-    /* Hide scrollbar (Chrome, Safari, Opera) */
-    .scrollbar-hidden::-webkit-scrollbar {
-      display: none;
+    .scrollbar-hidden::-webkit-scrollbar { display: none; }
+    .scrollbar-hidden { -ms-overflow-style: none; scrollbar-width: none; }
+
+    @keyframes slideCountries {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
-    /* Hide scrollbar (IE, Edge, Firefox) */
-    .scrollbar-hidden {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    @keyframes marqueeRight {
-      0% {
-        transform: translateX(-50%);
-      }
-      100% {
-        transform: translateX(0);
-      }
-    }
-    .animate-marqueeRight {
-      animation: marqueeRight 20s linear infinite;
-    }
-    /* Animated diagonal pattern for background */
+    .animate-slideCountries { animation: slideCountries 20s linear infinite; }
+
     .pattern-anim {
       background: #EAB619;
       background-image: repeating-linear-gradient(
         45deg,
         transparent,
         transparent 10px,
-        rgba(211, 157, 30, 0.3) 10px,
-        rgba(211, 157, 30, 0.3) 20px
+        rgba(211,157,30,0.3) 10px,
+        rgba(211,157,30,0.3) 20px
       );
       background-size: 200% 200%;
       animation: movePattern 30s linear infinite;
     }
     @keyframes movePattern {
-      0% {
-        background-position: 0 0;
-      }
-      100% {
-        background-position: 100% 100%;
-      }
+      0% { background-position: 0 0; }
+      100% { background-position: 100% 100%; }
     }
   </style>
 </head>
 <body class="pattern-anim flex items-center justify-center h-screen">
-  <!-- Main Container: scrollable with full-screen height -->
   <div id="main-cont" class="bg-dishly-cream rounded-[5rem] w-[160vh] h-screen p-6 overflow-y-auto scrollbar-hidden">
-    <!-- Content Wrapper with full-screen sections -->
     <div id="content-wrapper" class="flex flex-col">
       
-      <!-- Top Part: Beginning Screen with Carousel -->
+      <!-- Top Part -->
       <div id="top-part" class="h-screen flex flex-col items-center justify-center">
-        <!-- Logo Section -->
-        <div>
-          <img src="/static/img/dishly_logo_lg.png" alt="Dishly Logo" class="h-32 w-auto object-contain" />
-        </div>
-        <!-- Tagline -->
-        <p class="mt-4 text-3xl text-center text-black">
-          Learn culture through cooking!
-        </p>
-        <!-- Country Carousel -->
+        <img src="/static/img/dishly_logo_lg.png" alt="Dishly Logo" class="h-32 w-auto object-contain" />
+        <p class="mt-4 text-3xl text-center text-black">Learn culture through cooking!</p>
+
+        <!-- Carousel -->
         <div id="country_carousel" class="relative overflow-hidden w-[75rem] mt-10">
-          <!-- Carousel Track -->
-          <div class="flex space-x-6 animate-marqueeRight">
-            <!-- Carousel Cards with correct country names -->
+          <div class="flex space-x-6 animate-slideCountries">
+            <!-- Ethiopia -->
             <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
-              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <div class="w-64 h-28 overflow-hidden rounded-md">
+                <img src="/static/img/ethiopia.jpeg" alt="Ethiopia" class="w-full h-full object-cover" />
+              </div>
               <p class="mt-2 text-dishly-cream text-3xl font-bold">Ethiopia</p>
             </div>
+            <!-- Cuba -->
             <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
-              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <div class="w-64 h-28 overflow-hidden rounded-md">
+                <img src="/static/img/cuba.jpg" alt="Cuba" class="w-full h-full object-cover" />
+              </div>
               <p class="mt-2 text-dishly-cream text-3xl font-bold">Cuba</p>
             </div>
+            <!-- Egypt -->
             <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
-              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
-              <p class="mt-2 text-dishly-cream text-3xl font-bold">Mexico</p>
-            </div>
-            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
-              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <div class="w-64 h-28 overflow-hidden rounded-md">
+                <img src="/static/img/egypt.webp" alt="Egypt" class="w-full h-full object-cover" />
+              </div>
               <p class="mt-2 text-dishly-cream text-3xl font-bold">Egypt</p>
             </div>
+            <!-- Serbia -->
             <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
-              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
-              <p class="mt-2 text-dishly-cream text-3xl font-bold">Pakistan</p>
-            </div>
-            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
-              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
-              <p class="mt-2 text-dishly-cream text-3xl font-bold">India</p>
-            </div>
-            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
-              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
-              <p class="mt-2 text-dishly-cream text-3xl font-bold">Jamaica</p>
-            </div>
-            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
-              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
-              <p class="mt-2 text-dishly-cream text-3xl font-bold">Japan</p>
-            </div>
-            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
-              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <div class="w-64 h-28 overflow-hidden rounded-md">
+                <img src="/static/img/serbia.avif" alt="Serbia" class="w-full h-full object-cover" />
+              </div>
               <p class="mt-2 text-dishly-cream text-3xl font-bold">Serbia</p>
             </div>
+            <!-- Mexico -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 overflow-hidden rounded-md">
+                <img src="/static/img/mexico.jpeg" alt="Mexico" class="w-full h-full object-cover" />
+              </div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Mexico</p>
+            </div>
+            <!-- India -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 overflow-hidden rounded-md">
+                <img src="/static/img/india.jpg" alt="India" class="w-full h-full object-cover" />
+              </div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">India</p>
+            </div>
+            <!-- Pakistan -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 overflow-hidden rounded-md">
+                <img src="/static/img/pakistan.webp" alt="Pakistan" class="w-full h-full object-cover" />
+              </div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Pakistan</p>
+            </div>
+            <!-- Jamaica -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 overflow-hidden rounded-md">
+                <img src="/static/img/jamaica.webp" alt="Jamaica" class="w-full h-full object-cover" />
+              </div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Jamaica</p>
+            </div>
+            <!-- Germany -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 overflow-hidden rounded-md">
+                <img src="/static/img/germany.jpg" alt="Germany" class="w-full h-full object-cover" />
+              </div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Germany</p>
+            </div>
+            <!-- Japan -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 overflow-hidden rounded-md">
+                <img src="/static/img/japan.jpeg" alt="Japan" class="w-full h-full object-cover" />
+              </div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Japan</p>
+            </div>
           </div>
-          <!-- Fade Overlay -->
-          <div class="absolute top-0 right-0 h-full w-24 pointer-events-none"
-               style="background: linear-gradient(to right, transparent, #FFFBE2);">
-          </div>
+          <div class="absolute top-0 right-0 h-full w-24 pointer-events-none" style="background: linear-gradient(to right, transparent, #FFFBE2);"></div>
         </div>
-        <!-- Get Started Button -->
+
         <div class="mt-10">
           <button onclick="revealSecondPart()" class="bg-dishly-pink rounded-full p-4">
             <svg class="w-8 h-8 text-dishly-cream transform rotate-180 animate-bounce" fill="currentColor" viewBox="0 0 16 16">
@@ -135,91 +141,121 @@
         </div>
       </div>
       
-      <!-- Second Part: Country Selection with Card-like Appearance -->
+      <!-- Second Part -->
       <div id="second-part" class="h-screen flex flex-col items-center justify-start pt-12">
-        <!-- Header for country selection -->
         <div class="flex flex-col items-center mb-8">
           <img src="/static/img/dishly_logo_lg.png" alt="Dishly Logo" class="h-16 w-auto object-contain" />
           <p class="mt-4 text-3xl text-center text-black">What country do you want to explore?</p>
         </div>
-        <!-- Form wrapping the grid of country cards -->
         <form action="/home" method="post">
           <input type="hidden" name="country" id="selected-country">
           <div class="grid grid-cols-4 gap-8">
-            <!-- Ethiopia Card -->
+            <!-- Ethiopia -->
             <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
               <p class="text-xl font-bold text-dishly-cream">Ethiopia</p>
-              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <div class="w-full h-3/5 overflow-hidden rounded-md">
+                <img src="/static/img/ethiopia.jpeg" alt="Ethiopia" class="w-full h-full object-cover" />
+              </div>
               <button type="button" onclick="selectCountry('Ethiopia')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
                 Learn!
               </button>
             </div>
+            <!-- Cuba -->
             <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
               <p class="text-xl font-bold text-dishly-cream">Cuba</p>
-              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <div class="w-full h-3/5 overflow-hidden rounded-md">
+                <img src="/static/img/cuba.jpg" alt="Cuba" class="w-full h-full object-cover" />
+              </div>
               <button type="button" onclick="selectCountry('Cuba')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
                 Learn!
               </button>
             </div>
+            <!-- Egypt -->
             <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
               <p class="text-xl font-bold text-dishly-cream">Egypt</p>
-              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <div class="w-full h-3/5 overflow-hidden rounded-md">
+                <img src="/static/img/egypt.webp" alt="Egypt" class="w-full h-full object-cover" />
+              </div>
               <button type="button" onclick="selectCountry('Egypt')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
                 Learn!
               </button>
             </div>
-            <!-- Serbia Card -->
+            <!-- Serbia -->
             <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
               <p class="text-xl font-bold text-dishly-cream">Serbia</p>
-              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <div class="w-full h-3/5 overflow-hidden rounded-md">
+                <img src="/static/img/serbia.avif" alt="Serbia" class="w-full h-full object-cover" />
+              </div>
               <button type="button" onclick="selectCountry('Serbia')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
                 Learn!
               </button>
             </div>
+            <!-- Mexico -->
             <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
               <p class="text-xl font-bold text-dishly-cream">Mexico</p>
-              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <div class="w-full h-3/5 overflow-hidden rounded-md">
+                <img src="/static/img/mexico.jpeg" alt="Mexico" class="w-full h-full object-cover" />
+              </div>
               <button type="button" onclick="selectCountry('Mexico')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
                 Learn!
               </button>
             </div>
-            <!-- India Card -->
+            <!-- India -->
             <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
               <p class="text-xl font-bold text-dishly-cream">India</p>
-              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <div class="w-full h-3/5 overflow-hidden rounded-md">
+                <img src="/static/img/india.jpg" alt="India" class="w-full h-full object-cover" />
+              </div>
               <button type="button" onclick="selectCountry('India')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
                 Learn!
               </button>
             </div>
+            <!-- Pakistan -->
             <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
               <p class="text-xl font-bold text-dishly-cream">Pakistan</p>
-              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <div class="w-full h-3/5 overflow-hidden rounded-md">
+                <img src="/static/img/pakistan.webp" alt="Pakistan" class="w-full h-full object-cover" />
+              </div>
               <button type="button" onclick="selectCountry('Pakistan')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
                 Learn!
               </button>
             </div>
-            <!-- Jamaica Card -->
+            <!-- Jamaica -->
             <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
               <p class="text-xl font-bold text-dishly-cream">Jamaica</p>
-              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <div class="w-full h-3/5 overflow-hidden rounded-md">
+                <img src="/static/img/jamaica.webp" alt="Jamaica" class="w-full h-full object-cover" />
+              </div>
               <button type="button" onclick="selectCountry('Jamaica')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
                 Learn!
               </button>
             </div>
+            <!-- Germany -->
             <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
               <p class="text-xl font-bold text-dishly-cream">Germany</p>
-              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <div class="w-full h-3/5 overflow-hidden rounded-md">
+                <img src="/static/img/germany.jpg" alt="Germany" class="w-full h-full object-cover" />
+              </div>
               <button type="button" onclick="selectCountry('Germany')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
                 Learn!
               </button>
             </div>
-            <!-- Japan Card -->
+            <!-- Japan -->
             <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
               <p class="text-xl font-bold text-dishly-cream">Japan</p>
-              <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+              <div class="w-full h-3/5 overflow-hidden rounded-md">
+                <img src="/static/img/japan.jpeg" alt="Japan" class="w-full h-full object-cover" />
+              </div>
               <button type="button" onclick="selectCountry('Japan')" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
                 Learn!
               </button>
+            </div>
+            <!-- Placeholder Boxes for More Countries -->
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-center rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">More to come!</p>
+            </div>
+            <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-center rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+              <p class="text-xl font-bold text-dishly-cream">More to come!</p>
             </div>
           </div>
         </form>

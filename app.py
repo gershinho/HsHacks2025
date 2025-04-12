@@ -17,8 +17,7 @@ def extract_recipe_details(source_url):
         'url': source_url
     }
     response = requests.get(EXTRACT_ENDPOINT, params=params)
-    data = response.json()
-    return data
+    return response.json()
 
 
 def fetch_recipe_by_country(country):
@@ -26,80 +25,56 @@ def fetch_recipe_by_country(country):
     params = {
         'apiKey': SPOONACULAR_API_KEY,
         'query': country,
-        'number': 100,  # Retrieve up to 100 recipes for filtering.
+        'number': 100,
         'addRecipeInformation': True
     }
-    response = requests.get(SEARCH_ENDPOINT, params=params)
-    data = response.json()
+    data = requests.get(SEARCH_ENDPOINT, params=params).json()
     
-    # Filter for recipes that have a sourceUrl (to allow extraction).
-    valid_recipes = []
-    for recipe_data in data.get('results', []):
-        source_url = recipe_data.get('sourceUrl')
-        if source_url and source_url.strip() != '':
-            valid_recipes.append(recipe_data)
+    # Filter for recipes that have a sourceUrl
+    valid = [r for r in data.get('results', []) if r.get('sourceUrl')]
+    if not valid:
+        return None
+
+    chosen = random.choice(valid)
+    details = extract_recipe_details(chosen['sourceUrl'])
     
-    if valid_recipes:
-        # Create a copy so we can filter out unwanted recipes.
-        available_recipes = valid_recipes.copy()
-        chosen_recipe = None
-        detailed_data = None
-        
-        while available_recipes:
-            chosen_recipe = random.choice(available_recipes)
-            source_url = chosen_recipe.get('sourceUrl')
-            detailed_data = extract_recipe_details(source_url)
-            
-            # Get the recipe title from detailed data or fallback to the chosen recipe.
-            recipe_title = detailed_data.get("title", chosen_recipe.get("title", "No title")).strip()
-            
-            # If the recipe title is "Gete's perfect tikil gomen", remove it and choose another.
-            if recipe_title.lower() == "gete's perfect tikil gomen".lower():
-                available_recipes.remove(chosen_recipe)
-                continue
-            else:
-                break  # Found a valid recipe.
-        
-        # If no valid recipe remains, return None.
-        if not available_recipes:
-            return None
-        
-        # Extract ingredients from the detailed data.
-        ingredients_list = []
-        if "extendedIngredients" in detailed_data:
-            ingredients_list = [ing.get("name", "Unknown") for ing in detailed_data["extendedIngredients"]]
-        elif "ingredients" in detailed_data:
-            ingredients_list = [ing.get("name", "Unknown") for ing in detailed_data["ingredients"]]
-        
-        # Filter each ingredient: Remove any text after the hyphen, including the hyphen itself.
-        ingredients_list = [ingredient.split('-')[0].strip() for ingredient in ingredients_list]
-        
-        # Process the summary:
-        summary = detailed_data.get("summary", "")
-        cut_markers = [
+    # Ingredients
+    ingredients = []
+    if "extendedIngredients" in details:
+        ingredients = [ing.get("name", "Unknown") for ing in details["extendedIngredients"]]
+    elif "ingredients" in details:
+        ingredients = [ing.get("name", "Unknown") for ing in details["ingredients"]]
+    ingredients = [i.split('-')[0].strip() for i in ingredients]
+    
+    # Summary filtering
+    summary = details.get("summary", "")
+    cut_markers = [
         "Similar recipes include",
         "Overall",
         "Taking all factors into account",
         "It is brought to you by"
-        ]
-        cut_index = len(summary)
-        for marker in cut_markers:
-            idx = summary.find(marker)
-            if idx != -1 and idx < cut_index:
-                cut_index = idx
-        summary = summary[:cut_index].strip()
+    ]
+    cut_index = len(summary)
+    for m in cut_markers:
+        idx = summary.find(m)
+        if idx != -1 and idx < cut_index:
+            cut_index = idx
+    summary = summary[:cut_index].strip()
+    # spoonacular score truncation
+    sc = "spoonacular score"
+    idx = summary.find(sc)
+    if idx != -1:
+        end = summary.find("%", idx)
+        if end != -1:
+            summary = summary[:end+1]
 
-        recipe_return = {
-            "title": detailed_data.get("title", chosen_recipe.get("title", "No title")),
-            "ingredients": ingredients_list,
-            "summary": summary,
-            "instructions": detailed_data.get("instructions", "")
-        }
-    
-        print(ingredients_list)
-        return recipe_return
-
-    return None
+    return {
+        "title": details.get("title", chosen.get("title", "No title")),
+        "image": chosen.get("image", ""),
+        "ingredients": ingredients,
+        "summary": summary,
+        "instructions": details.get("instructions", "")
+    }
 
 
 @app.route('/', methods=['GET', 'POST'])

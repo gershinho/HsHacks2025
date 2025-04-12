@@ -41,16 +41,40 @@
     .animate-marqueeRight {
       animation: marqueeRight 20s linear infinite;
     }
+
+    /* Animated diagonal pattern applied to the entire website's background */
+    .pattern-anim {
+      background: #EAB619;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(211, 157, 30, 0.3) 10px,
+        rgba(211, 157, 30, 0.3) 20px
+      );
+      background-size: 200% 200%;
+      /* Slowed down animation duration from 5s to 30s */
+      animation: movePattern 30s linear infinite;
+    }
+    @keyframes movePattern {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 100% 100%;
+      }
+    }
   </style>
 </head>
-<body class="bg-dishly-gold flex items-center justify-center h-screen">
-  <!-- Main Container is scrollable and set to one screen height -->
+<body class="pattern-anim flex items-center justify-center h-screen">
+  <!-- Main Container is scrollable and one full viewport height -->
   <div
     id="main-cont"
     class="bg-dishly-cream rounded-[5rem] w-[160vh] h-screen p-6 overflow-y-auto scrollbar-hidden"
   >
     <!-- Content Wrapper with Two Full-Screen Sections -->
     <div id="content-wrapper" class="flex flex-col">
+      
       <!-- Top Part: This fills one screen -->
       <div id="top-part" class="h-screen flex flex-col items-center justify-center">
         <!-- Logo Section -->
@@ -143,7 +167,7 @@
               <p class="mt-2 text-dishly-cream text-3xl font-bold">India</p>
             </div>
           </div>
-          <!-- Fade Overlay -->
+          <!-- Fade Overlay on the right -->
           <div class="absolute top-0 right-0 h-full w-24 pointer-events-none" style="background: linear-gradient(to right, transparent, #FFFBE2);"></div>
         </div>
         <!-- Get Started Button -->
@@ -155,18 +179,98 @@
           </button>
         </div>
       </div>
-      <!-- Second Part: This fills one screen -->
-      <div id="second-part" class="h-screen flex items-center justify-center">
-        <p class="text-3xl font-bold text-black">Second Part</p>
+      
+      <!-- Second Part: Contains a header with the logo and text, and then a grid of 8 country cards -->
+      <div id="second-part" class="h-screen flex flex-col items-center justify-start pt-12">
+        <!-- Header for the country selection -->
+        <div class="flex flex-col items-center mb-8">
+          <img src="/static/img/dishly_logo_lg.png" alt="Dishly Logo" class="h-16 w-auto object-contain" />
+          <p class="mt-4 text-3xl text-center text-black">What country do you want to explore?</p>
+        </div>
+        <!-- Grid of country cards -->
+        <div class="grid grid-cols-4 gap-8">
+          <!-- USA Card -->
+          <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+            <p class="text-xl font-bold text-dishly-cream">USA</p>
+            <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+            <button id="USA" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+              Learn!
+            </button>
+          </div>
+          
+          <!-- France Card -->
+          <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+            <p class="text-xl font-bold text-dishly-cream">France</p>
+            <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+            <button id="France" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+              Learn!
+            </button>
+          </div>
+          
+          <!-- Italy Card -->
+          <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+            <p class="text-xl font-bold text-dishly-cream">Italy</p>
+            <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+            <button id="Italy" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+              Learn!
+            </button>
+          </div>
+          
+          <!-- Spain Card -->
+          <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+            <p class="text-xl font-bold text-dishly-cream">Spain</p>
+            <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+            <button id="Spain" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+              Learn!
+            </button>
+          </div>
+          
+          <!-- Germany Card -->
+          <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+            <p class="text-xl font-bold text-dishly-cream">Germany</p>
+            <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+            <button id="Germany" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+              Learn!
+            </button>
+          </div>
+          
+          <!-- Japan Card -->
+          <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+            <p class="text-xl font-bold text-dishly-cream">Japan</p>
+            <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+            <button id="Japan" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+              Learn!
+            </button>
+          </div>
+          
+          <!-- Brazil Card -->
+          <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+            <p class="text-xl font-bold text-dishly-cream">Brazil</p>
+            <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+            <button id="Brazil" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+              Learn!
+            </button>
+          </div>
+          
+          <!-- India Card -->
+          <div class="group cursor-pointer w-64 h-80 p-4 flex flex-col items-center justify-between rounded-[2rem] bg-dishly-gold border-4 border-dishly-gold transition-all duration-300 hover:bg-dishly-pink hover:border-transparent">
+            <p class="text-xl font-bold text-dishly-cream">India</p>
+            <div class="w-full h-3/5 bg-dishly-cream rounded-md"></div>
+            <button id="India" class="px-5 py-2 rounded-full bg-white text-black font-semibold transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-dishly-gold">
+              Learn!
+            </button>
+          </div>
+        </div>
       </div>
+      
     </div>
   </div>
 
   <script>
+    // Smoothly scroll to second part when Get Started button is clicked
     function revealSecondPart() {
       const mainCont = document.getElementById('main-cont');
       const secondPart = document.getElementById('second-part');
-      // Smoothly scroll the container to the position of the second screen
       mainCont.scrollTo({ top: secondPart.offsetTop, behavior: 'smooth' });
     }
   </script>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dishly - Learn Culture Through Cooking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dishly-gold': '#EAB619',
+            'dishly-cream': '#FFFBE2',
+            'dishly-pink': '#F65A6D',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Hide scrollbar (Chrome, Safari, Opera) */
+    .scrollbar-hidden::-webkit-scrollbar {
+      display: none;
+    }
+    /* Hide scrollbar (IE, Edge, Firefox) */
+    .scrollbar-hidden {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+
+    /* Animate the carousel track so that it slides gently from left to right */
+    @keyframes marqueeRight {
+      0% {
+        transform: translateX(-50%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    .animate-marqueeRight {
+      animation: marqueeRight 20s linear infinite;
+    }
+  </style>
+</head>
+<body class="bg-dishly-gold flex items-center justify-center h-screen">
+  <!-- Main Container is scrollable and set to one screen height -->
+  <div
+    id="main-cont"
+    class="bg-dishly-cream rounded-[5rem] w-[160vh] h-screen p-6 overflow-y-auto scrollbar-hidden"
+  >
+    <!-- Content Wrapper with Two Full-Screen Sections -->
+    <div id="content-wrapper" class="flex flex-col">
+      <!-- Top Part: This fills one screen -->
+      <div id="top-part" class="h-screen flex flex-col items-center justify-center">
+        <!-- Logo Section -->
+        <div>
+          <img
+            src="/static/img/dishly_logo_lg.png"
+            alt="Dishly Logo"
+            class="h-32 w-auto object-contain"
+          />
+        </div>
+        <!-- Tagline -->
+        <p class="mt-4 text-3xl text-center text-black">
+          Learn culture through cooking!
+        </p>
+        <!-- Country Carousel -->
+        <div id="country_carousel" class="relative overflow-hidden w-[75rem] mt-10">
+          <!-- Carousel Track: Duplicated items for seamless looping -->
+          <div class="flex space-x-6 animate-marqueeRight">
+            <!-- Card 1: USA -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">USA</p>
+            </div>
+            <!-- Card 2: France -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">France</p>
+            </div>
+            <!-- Card 3: Italy -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Italy</p>
+            </div>
+            <!-- Card 4: Spain -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Spain</p>
+            </div>
+            <!-- Card 5: Germany -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Germany</p>
+            </div>
+            <!-- Card 6: Japan -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Japan</p>
+            </div>
+            <!-- Card 7: Brazil -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Brazil</p>
+            </div>
+            <!-- Card 8: India -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">India</p>
+            </div>
+            <!-- Duplicate Cards for Seamless Looping -->
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">USA</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">France</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Italy</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Spain</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Germany</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Japan</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">Brazil</p>
+            </div>
+            <div class="w-80 h-48 border-4 border-dishly-gold rounded-lg flex flex-col items-center justify-center bg-dishly-gold">
+              <div class="w-64 h-28 bg-dishly-cream rounded-md"></div>
+              <p class="mt-2 text-dishly-cream text-3xl font-bold">India</p>
+            </div>
+          </div>
+          <!-- Fade Overlay -->
+          <div class="absolute top-0 right-0 h-full w-24 pointer-events-none" style="background: linear-gradient(to right, transparent, #FFFBE2);"></div>
+        </div>
+        <!-- Get Started Button -->
+        <div class="mt-10">
+          <button onclick="revealSecondPart()" class="bg-dishly-pink rounded-full p-4">
+            <svg class="w-8 h-8 text-dishly-cream transform rotate-180 animate-bounce" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 1a1 1 0 01.894.553l6 12A1 1 0 0114 15H2a1 1 0 01-.894-1.447l6-12A1 1 0 018 1z" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Second Part: This fills one screen -->
+      <div id="second-part" class="h-screen flex items-center justify-center">
+        <p class="text-3xl font-bold text-black">Second Part</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function revealSecondPart() {
+      const mainCont = document.getElementById('main-cont');
+      const secondPart = document.getElementById('second-part');
+      // Smoothly scroll the container to the position of the second screen
+      mainCont.scrollTo({ top: secondPart.offsetTop, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

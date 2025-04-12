@@ -1,0 +1,24 @@
+{
+  "name": "hshacks2025",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/gershinho/HsHacks2025#readme",
+  "bugs": {
+    "url": "https://github.com/gershinho/HsHacks2025/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gershinho/HsHacks2025.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  },
+  "keywords": []
+}

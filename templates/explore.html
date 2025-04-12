@@ -1,172 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Recipe from {{ country }}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dishly – {{ recipe.title if recipe else "No Recipe" }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dishly-gold': '#EAB619',
+            'dishly-cream': '#FFFBE2',
+            'dishly-pink': '#F65A6D'
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f5f5f5;
+    /* Hide scrollbars */
+    .scrollbar-hidden::-webkit-scrollbar { display: none; }
+    .scrollbar-hidden { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Animated diagonal gold pattern */
+    .pattern-anim {
+      background: #EAB619;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent, transparent 10px,
+        rgba(211,157,30,0.3) 10px,
+        rgba(211,157,30,0.3) 20px
+      );
+      background-size: 200% 200%;
+      animation: movePattern 30s linear infinite;
     }
-    .recipe-title {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #333;
-    }
-    .note-card {
-      background-color: #ffffff;
-      border: 1px solid #ddd;
-      padding: 20px;
-      margin: 0 auto 20px auto;
-      width: 80%;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    .content-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-    .ingredients {
-      flex: 1;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    details {
-      background-color: #eef;
-      border: 1px solid #99c;
-      padding: 10px;
-      width: 80%;
-      margin: 20px auto;
-      border-radius: 8px;
-    }
-    details summary {
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .instruction-controls {
-      margin-top: 10px;
-      text-align: center;
-    }
-    .instruction-controls button {
-      padding: 5px 10px;
-      margin: 0 10px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    a {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      color: #0066cc;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
+    @keyframes movePattern { to { background-position:100% 100%; } }
   </style>
 </head>
-<body>
-  <h1 class="recipe-title">Recipe from {{ country }}</h1>
-  
-  {% if recipe %}
-    <h2 class="recipe-title">{{ recipe.title }}</h2>
-    
-    <!-- Note Card for Summary -->
-    <div class="note-card">
-      <h3>Summary</h3>
-      <p>{{ recipe.summary|safe }}</p>
-    </div>
-    
-    <!-- Two-column layout: Ingredients -->
-    <div class="content-container">
-      <div class="ingredients">
-        <h3>Ingredients:</h3>
-        <ul> 
-          {% for item in recipe.ingredients %}
-            <li>{{ item }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-    
-    <!-- Dropdown for Step-by-Step Instructions -->
-    <details id="instructionDetails">
-      <summary>Show Instructions</summary>
-      <div id="instructionContainer">
-        <p id="instructionStep"></p>
-        <div class="instruction-controls">
-          <button id="prevBtn">← Prev</button>
-          <button id="nextBtn">Next →</button>
+
+<body class="pattern-anim flex items-center justify-center h-screen">
+  <div id="main-cont" class="bg-dishly-cream rounded-[5rem] w-[80vw] h-screen p-6 overflow-y-auto scrollbar-hidden">
+    <div id="content-wrapper" class="flex flex-col">
+
+      <!-- Top Part -->
+      <div id="top-part" class="h-screen flex flex-col items-center justify-between py-8">
+        <!-- Logo -->
+        <div class="self-start ml-12">
+          <img src="/static/img/dishly_logo_lg.png" alt="Dishly Logo" class="h-12 w-auto" />
         </div>
+
+        <!-- Content Row -->
+        <div class="w-full px-12 flex space-x-8 flex-1">
+          <!-- Country Card -->
+          <div class="w-[30%] bg-dishly-pink rounded-[2rem] py-8 px-4 flex flex-col">
+            <h3 class="text-3xl font-bold text-white mb-6">{{ country }}</h3>
+            <div class="flex-1 bg-white rounded-xl flex items-center justify-center text-dishly-pink text-xl mx-4 my-2 aspect-square p-4">
+              <!-- Could insert a country flag or image here -->
+              <span>No Image</span>
+            </div>
+          </div>
+
+          <!-- Dish Card -->
+          <div class="w-[70%] bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
+            <div class="flex justify-between items-start">
+              <h3 class="text-3xl font-bold text-white">{{ recipe.title }}</h3>
+              <button onclick="window.location.href='/explore?country={{ country }}'"
+                      class="w-12 h-12 bg-dishly-gold rounded-full flex items-center justify-center
+                             transition transform hover:brightness-110 hover:scale-105">
+                <svg class="w-6 h-6 text-dishly-cream" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="8,4 20,12 8,20" />
+                </svg>
+              </button>
+            </div>
+            <div class="mt-6 flex-1 bg-dishly-cream rounded-lg p-6 text-gray-700 overflow-y-auto text-lg">
+              {{ recipe.summary|safe }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Cook It Button -->
+        <button onclick="revealSecondPart()"
+                class="mt-8 w-1/4 bg-dishly-gold text-white px-12 py-4 rounded-full text-lg
+                       transition transform hover:brightness-110 hover:scale-105">
+          Cook it!
+        </button>
       </div>
-    </details>
-  
-  {% else %}
-    <p>Sorry, no suitable recipe was found for {{ country }}.</p>
-  {% endif %}
-  
-  <a href="/">Back to country selection</a>
-  
-  <!-- JavaScript for Step-by-Step Instructions -->
-  <script>
-    // Retrieve instructions passed from Flask.
-    const instructionsHTML = {{ recipe.instructions | tojson }};
-    
-    let steps = [];
-    
-    // Create a temporary container to parse HTML.
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = instructionsHTML;
-    // Check for list items first.
-    const listItems = tempDiv.querySelectorAll('li');
-    if (listItems.length > 0) {
-      steps = Array.from(listItems).map(item => item.textContent.trim());
-    } else if (instructionsHTML.match(/\d+\.\s/)) {
-      // Otherwise, look for numbered steps if available.
-      steps = instructionsHTML.split(/(?=\d+\.\s)/);
-      steps = steps.map(s => s.trim()).filter(s => s.length > 0);
-    } else if (instructionsHTML) {
-      // Fallback: split by period.
-      steps = instructionsHTML.split('.').map(s => s.trim()).filter(s => s.length > 0);
-    }
-    
-    let currentStep = 0;
-    
-    function showStep(index) {
-      const stepEl = document.getElementById("instructionStep");
-      if (index >= 0 && index < steps.length) {
-        // Prepend a step number.
-        stepEl.innerText = "Step " + (index + 1) + ": " + steps[index];
-        currentStep = index;
-      }
-      document.getElementById("prevBtn").disabled = (currentStep === 0);
-      document.getElementById("nextBtn").disabled = (currentStep === steps.length - 1);
-    }
-    
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      if (currentStep > 0) {
-        showStep(currentStep - 1);
-      }
-    });
-    
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      if (currentStep < steps.length - 1) {
-        showStep(currentStep + 1);
-      }
-    });
-    
-    // When dropdown is opened, show the first instruction.
-    document.getElementById("instructionDetails").addEventListener("toggle", function() {
-      if (this.open && steps.length > 0) {
-        showStep(0);
-      }
-    });
-  </script>
+
+<!-- Second Part -->
+<div id="second-part" class="h-screen flex flex-col items-center justify-center">
+  <!-- Back to Top & Home Buttons -->
+  <div class="flex space-x-4 mb-4">
+    <button onclick="backToTop()"
+            class="w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center
+                   transition transform hover:brightness-110 hover:scale-105">
+      <svg class="w-6 h-6 text-dishly-cream transform -rotate-90" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="8,4 20,12 8,20" />
+      </svg>
+    </button>
+    <button onclick="window.location='/'"
+            class="w-10 h-10 bg-dishly-cream rounded-full flex items-center justify-center
+                   transition transform hover:brightness-110 hover:scale-105">
+      <svg class="w-6 h-6 text-dishly-pink" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Instructions & Ingredients Panels -->
+  <div class="w-4/5 flex space-x-8 h-2/3">
+    <!-- Instructions Panel -->
+    <div class="relative w-2/3 bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
+      <h2 class="text-2xl font-bold text-white mb-4 text-center">Instructions</h2>
+      <div id="instructionDisplay" class="flex-1 flex items-center justify-center text-white text-2xl text-center overflow-y-auto px-4">
+        <!-- Populated by JS -->
+      </div>
+      <!-- Navigation Arrows -->
+      <div class="absolute bottom-6 right-6 flex space-x-4">
+        <button id="prevInst" class="w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center transition transform hover:brightness-110 hover:scale-105 disabled:opacity-50">
+          <svg class="w-6 h-6 text-dishly-cream transform rotate-180" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="8,4 20,12 8,20" />
+          </svg>
+        </button>
+        <button id="nextInst" class="w-10 h-10 bg-dishly-gold rounded-full flex items-center justify-center transition transform hover:brightness-110 hover:scale-105 disabled:opacity-50">
+          <svg class="w-6 h-6 text-dishly-cream" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="8,4 20,12 8,20" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Ingredients Panel -->
+    <div class="w-1/4 bg-dishly-pink rounded-[2rem] p-8 flex flex-col">
+      <h2 class="text-2xl font-bold text-white mb-4 text-center">Ingredients</h2>
+      <ul class="flex-1 bg-dishly-pink text-white overflow-y-auto list-disc list-inside text-lg space-y-2 px-2">
+        {% for ing in recipe.ingredients %}
+          <li>{{ ing }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+function revealSecondPart() {
+document.getElementById('main-cont').scrollTo({ top: document.getElementById('second-part').offsetTop, behavior: 'smooth' });
+}
+function backToTop() {
+document.getElementById('main-cont').scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Instruction step logic
+const instrHTML = {{ recipe.instructions | tojson }};
+let steps = [];
+const tmp = document.createElement('div');
+tmp.innerHTML = instrHTML;
+const lis = tmp.querySelectorAll('li');
+if (lis.length) {
+steps = Array.from(lis).map(li=>li.textContent.trim());
+} else if (instrHTML.match(/\d+\.\s/)) {
+steps = instrHTML.split(/(?=\d+\.\s)/).map(s=>s.trim()).filter(s=>s);
+} else {
+steps = instrHTML.split('.').map(s=>s.trim()).filter(s=>s);
+}
+let idx = 0;
+const disp = document.getElementById('instructionDisplay');
+const prevBtn = document.getElementById('prevInst');
+const nextBtn = document.getElementById('nextInst');
+
+function show(i) {
+disp.textContent = steps[i] || '';
+prevBtn.disabled = i===0;
+nextBtn.disabled = i===steps.length-1;
+}
+prevBtn.addEventListener('click', ()=> show(--idx));
+nextBtn.addEventListener('click', ()=> show(++idx));
+window.addEventListener('load', ()=> show(0));
+</script>
 </body>
 </html>
